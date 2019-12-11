@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>42 Matters API Search</title>
+</head>
+
+<body>
+
+  <form id="app-id-query">
+    <label for="app-id-input">Enter App ID</label>
+    <input type="text" id="app-id-input"><br>
+    <input id="app-id" type="submit" value="GO!">
+  </form>
+
+  <form id="app-text-query">
+    <label for="app-text-input">Enter App TEXT</label>
+    <input type="text" id="app-text-input"><br>
+    <input id="app-text" type="submit" value="GO!">
+  </form>
+
+
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+
+  const token='b4773a173799cba9f9d6b33a00864a6609180a7f';
+
+  function searchIOSID(queryID) {
+
+    // Querying the bandsintown api for the selected artist, the ?app_id parameter is required, but can equal anything
+    var queryURL = "https://data.42matters.com/api/v2.0/ios/apps/lookup.json?id=" + queryID + "&access_token=" + token;
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).then(function(response) {
+
+      // Printing the entire object to console
+      console.log(response);
+
+      console.log("App Name: " + response.trackCensoredName);
+      console.log("App Store ID: " + response.trackId);
+      console.log("Advisories: " + response.advisories);
+      console.log("Content Advisory Rating: " + response.contentAdvisoryRating);
+      console.log("Description: " + response.description);
+      console.log("Primary Genre Name: " + response.primaryGenreName);
+      console.log("Genres: " + response.genres);
+      console.log("Artwork url: " + response.artworkUrl512)
+    });
+  }
+
+  function searchIOSText(queryID) {
+
+    // Querying the bandsintown api for the selected artist, the ?app_id parameter is required, but can equal anything
+    var queryURL = "https://data.42matters.com/api/v2.0/ios/apps/search.json?q=" + queryID + "&access_token=" + token;
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).then(function(response) {
+
+      // Printing the entire object to console
+      console.log(response);
+
+      console.log("App Name: " + response.results[0].trackCensoredName);
+      console.log("App Store ID: " + response.results[0].trackId);
+      console.log("Advisories: " + response.results[0].advisories);
+      console.log("Content Advisory Rating: " + response.results[0].contentAdvisoryRating);
+      console.log("Description: " + response.results[0].description);
+      console.log("Primary Genre Name: " + response.results[0].primaryGenreName);
+      console.log("Genres: " + response.results[0].genres);
+      console.log("Artwork url: " + response.results[0].artworkUrl512)
+    });
+  }
+
+  // Event handler for user searching by ID
+  $("#app-id").on("click", function(event) {
+    event.preventDefault();
+    var query = $("#app-id-input").val().trim();
+    console.log(query);
+    searchIOSID(query);
+  });
+
+  // Event handler for user searching by Text
+  $("#app-text").on("click", function(event) {
+    event.preventDefault();
+    var queryTerm = $("#app-text-input").val().trim();
+    console.log(queryTerm);
+    searchIOSText(queryTerm);
+  });
+
+
+</script>
+
+</html>

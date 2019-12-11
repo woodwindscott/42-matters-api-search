@@ -1,0 +1,24 @@
+{
+  "name": "42-matters-api-search",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app-search.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/woodwindscott/42-matters-api-search.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/woodwindscott/42-matters-api-search/issues"
+  },
+  "homepage": "https://github.com/woodwindscott/42-matters-api-search#readme",
+  "dependencies": {
+    "https": "^1.0.0",
+    "request": "^2.88.0"
+  }
+}

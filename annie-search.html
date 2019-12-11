@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>42 Matters API Search</title>
+</head>
+
+<body>
+
+  <!-- Artist Select Box -->
+  <form id="artist-form">
+
+    <!-- Label for Text Box -->
+    <label for="artist-input">Enter App Name</label>
+
+    <!-- Text Input Box -->
+    <input type="text" id="app-id-input"><br>
+
+    <!-- Submit Button -->
+    <input id="app-id" type="submit" value="GO!">
+  </form>
+
+  <!-- Artist Information -->
+  <div id="artist-div"></div>
+
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  function searchAnnie() {
+
+    // Querying the bandsintown api for the selected artist, the ?app_id parameter is required, but can equal anything
+    // var queryURL = "https://cors-anywhere.herokuapp.com/https://api.appannie.com/v1.2/apps/ios/app/" + query + "/details" + "&apikey=77d52ab4d1010f92e2b05d5102fcd8815d8b32dc";
+    // var queryURL = "https://cors-anywhere.herokuapp.com/https://api.appannie.com/v1.2/apps/ios/app/" + query + "/details";
+    // var queryURL = "https://api.appannie.com/v1.3/intelligence/apps/all-android/app/20600000009072/usage-history?countries=US&device=all&granularity=daily&start_date=2018-01-01&end_date=2018-01-01 --Header Authorization: Bearer 77d52ab4d1010f92e2b05d5102fcd8815d8b32dc";
+    var queryURL = "https://api.appannie.com/v1.3/intelligence/apps/all-android/app/20600000009072/usage-history?countries=US&device=all&granularity=daily&start_date=2018-01-01&end_date=2018-01-01";
+
+    $.ajax({
+        headers: {
+            Authorization: "Bearer 77d52ab4d1010f92e2b05d5102fcd8815d8b32dc"
+        },
+        url: queryURL,
+        method: "GET"
+    }).then(function(response) {
+
+      // Printing the entire object to console
+      console.log(response);
+
+    //   console.log("App Name: " + response.trackCensoredName);
+    //   console.log("App Store ID: " + response.trackId);
+    //   console.log("Advisories: " + response.advisories);
+    //   console.log("Content Advisory Rating: " + response.contentAdvisoryRating);
+    //   console.log("Description: " + response.description);
+    //   console.log("Primary Genre Name: " + response.primaryGenreName);
+    //   console.log("Genres: " + response.genres);
+    //   console.log("Artwork url: " + response.artworkUrl512)
+    });
+  }
+
+  // Event handler for user clicking the select-artist button
+  $("#app-id").on("click", function(event) {
+    // Preventing the button from trying to submit the form
+    event.preventDefault();
+    // Storing the artist name
+    var queryTerm = $("#app-id-input").val().trim();
+    console.log(queryTerm);
+
+    // Running the searchBandsInTown function(passing in the artist as an argument)
+    searchAnnie();
+  });
+</script>
+
+</html>
